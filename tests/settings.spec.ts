@@ -11,21 +11,20 @@ test.describe('Feature: Application Settings', () => {
   });
 
   test('Dark mode toggle changes the theme', async ({ page }) => {
-    await page.getByTestId('settings-nav').click();
+    await page.getByTestId('nav-settings').click();
     
-    await page.getByTestId('theme-toggle').click();
+    await page.getByTestId('dark-mode-toggle').click();
     
-    await expect(page.getByTestId('main-app')).toHaveClass(/dark-mode/);
+    await expect(page.getByTestId('dashboard')).toHaveClass(/dark-mode/);
   });
 
   test('Saving settings shows confirmation message', async ({ page }) => {
-    await page.getByTestId('menu-settings').click();
+    await page.getByTestId('nav-settings').click();
     
-    // Change language
     await page.getByTestId('language-select').selectOption('DE');
     
-    await page.getByTestId('apply-settings').click();
+    await page.getByTestId('save-settings-button').click();
     
-    await expect(page.getByTestId('confirmation-message')).toHaveText('Settings saved.');
+    await expect(page.getByTestId('settings-message')).toHaveText('Settings saved.');
   });
 });

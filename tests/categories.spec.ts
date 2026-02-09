@@ -11,46 +11,44 @@ test.describe('Feature: Category Navigation', () => {
   });
 
   test('Shoes category opens successfully', async ({ page }) => {
-    await page.getByTestId('shoes-button').click();
+    await page.getByTestId('category-btn-shoes').click();
     
-    await expect(page.getByTestId('shoes-message')).toHaveText('Welcome to Shoes section.');
+    await expect(page.getByTestId('category-message')).toHaveText('Welcome to Shoes section.');
   });
 
   test('Clothes category opens successfully', async ({ page }) => {
-    await page.getByTestId('btn-clothes').click();
+    await page.getByTestId('category-btn-clothes').click();
     
-    await expect(page.getByTestId('clothes-welcome')).toHaveText('Welcome to Clothes section.');
+    await expect(page.getByTestId('category-message')).toHaveText('Welcome to Clothes section.');
   });
 
   test('Accessories category opens successfully', async ({ page }) => {
-    await page.getByTestId('accessories-btn').click();
+    await page.getByTestId('category-btn-accessories').click();
     
-    await expect(page.getByTestId('section-message')).toHaveText('Welcome to Accessories section.');
+    await expect(page.getByTestId('category-message')).toHaveText('Welcome to Accessories section.');
   });
 
   test('Only one category section is visible at a time', async ({ page }) => {
-    // Click Shoes first
     await page.getByTestId('category-btn-shoes').click();
     await expect(page.getByTestId('category-shoes')).toBeVisible();
     
-    // Click Clothes
     await page.getByTestId('category-btn-clothes').click();
     
-    await expect(page.getByTestId('shoes-section')).not.toBeVisible();
+    await expect(page.getByTestId('category-shoes')).not.toBeVisible();
     
-    await expect(page.getByTestId('clothes-section')).toBeVisible();
+    await expect(page.getByTestId('category-clothes')).toBeVisible();
   });
 
   test('Category item counter is displayed', async ({ page }) => {
     await page.getByTestId('category-btn-shoes').click();
     
-    await expect(page.getByTestId('items-count')).toBeVisible();
+    await expect(page.getByTestId('item-counter')).toBeVisible();
   });
 
   test('Add to cart button is disabled by default', async ({ page }) => {
     await page.getByTestId('category-btn-shoes').click();
     
-    const addButton = page.getByTestId('add-cart-btn').first();
+    const addButton = page.getByTestId('add-to-cart-button').first();
     await expect(addButton).toBeDisabled();
   });
 });
