@@ -6,25 +6,25 @@ test.describe('Feature: Authentication', () => {
   });
 
   test('Login validation - empty username', async ({ page }) => {
-    await page.getByTestId('signin-button').click();
+    await page.getByTestId('login-button').click();
     
-    await expect(page.getByTestId('validation-error')).toHaveText('Username is required.');
+    await expect(page.getByTestId('error-message')).toHaveText('Username is required.');
   });
 
   test('Login validation - empty password', async ({ page }) => {
-    await page.getByTestId('user-input').fill('admin');
+    await page.getByTestId('username-input').fill('admin');
     
-    await page.getByTestId('submit-btn').click();
+    await page.getByTestId('login-button').click();
     
-    await expect(page.getByTestId('form-error')).toHaveText('Password is required.');
+    await expect(page.getByTestId('error-message')).toHaveText('Password is required.');
   });
 
   test('Login validation - password too short', async ({ page }) => {
-    await page.getByTestId('username-field').fill('admin');
+    await page.getByTestId('username-input').fill('admin');
     
-    await page.getByTestId('password-field').fill('pass');
+    await page.getByTestId('password-input').fill('pass');
     
-    await page.getByTestId('login-btn').click();
+    await page.getByTestId('login-button').click();
     
     await expect(page.getByTestId('error-message')).toHaveText('Password is too short.');
   });
@@ -33,9 +33,9 @@ test.describe('Feature: Authentication', () => {
     await page.getByTestId('username-input').fill('admin');
     await page.getByTestId('password-input').fill('password123');
     
-    await page.getByTestId('auth-button').click();
+    await page.getByTestId('login-button').click();
     
-    await expect(page.getByTestId('login-success')).toHaveText('You made it!');
+    await expect(page.getByTestId('success-message')).toHaveText('You made it!');
   });
 
   test('Failed login with invalid password', async ({ page }) => {
@@ -43,7 +43,7 @@ test.describe('Feature: Authentication', () => {
     await page.getByTestId('password-input').fill('wrongpassword');
     await page.getByTestId('login-button').click();
     
-    await expect(page.getByTestId('login-error')).toHaveText('Try again.');
+    await expect(page.getByTestId('error-message')).toHaveText('Try again.');
   });
 
   test('Account lock after three failed login attempts', async ({ page }) => {
@@ -60,16 +60,16 @@ test.describe('Feature: Authentication', () => {
     await page.getByTestId('password-input').fill('wrong3');
     await page.getByTestId('login-button').click();
     
-    await expect(page.getByTestId('submit-button')).toBeDisabled();
+    await expect(page.getByTestId('login-button')).toBeDisabled();
     
-    await expect(page.getByTestId('lock-message')).toHaveText('Account locked.');
+    await expect(page.getByTestId('error-message')).toHaveText('Account locked.');
   });
 
   test('Password visibility toggle works on login page', async ({ page }) => {
     await page.getByTestId('password-input').fill('testpassword');
     
-    await page.getByTestId('show-password-btn').click();
+    await page.getByTestId('toggle-password').click();
     
-    await expect(page.getByTestId('password-field')).toHaveAttribute('type', 'text');
+    await expect(page.getByTestId('password-input')).toHaveAttribute('type', 'text');
   });
 });

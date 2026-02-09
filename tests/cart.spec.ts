@@ -13,30 +13,29 @@ test.describe('Feature: Cart Indicator', () => {
   test('Adding an item increases cart count', async ({ page }) => {
     await page.getByTestId('category-btn-shoes').click();
     
-    // Note: Button is disabled, but test should check the selector is correct
     const cartCountBefore = await page.getByTestId('cart-count').textContent();
     
-    await page.getByTestId('cart-add-button').first().click({ force: true });
+    await page.getByTestId('add-to-cart-button').first().click();
     
-    await expect(page.getByTestId('header-cart-count')).toHaveText('1');
+    await expect(page.getByTestId('cart-count')).toHaveText((parseInt(cartCountBefore || '0') + 1).toString());
   });
 
   test('Toast message appears when item is added', async ({ page }) => {
     await page.getByTestId('category-btn-shoes').click();
     
-    await page.getByTestId('add-item-btn').first().click({ force: true });
+    await page.getByTestId('add-to-cart-button').first().click();
     
-    await expect(page.getByTestId('notification-toast')).toHaveText('Item added to cart.');
+    await expect(page.getByTestId('toast-message')).toHaveText('Item added to cart.');
   });
 
   test('Cart count persists across category navigation', async ({ page }) => {
     // Add item to shoes
     await page.getByTestId('category-btn-shoes').click();
-    await page.getByTestId('add-to-cart-button').first().click({ force: true });
+    await page.getByTestId('add-to-cart-button').first().click();
     
     // Navigate to clothes
     await page.getByTestId('category-btn-clothes').click();
     
-     await expect(page.getByTestId('basket-count')).toHaveText('1');
+    await expect(page.getByTestId('cart-count')).toHaveText('1');
   });
 });
