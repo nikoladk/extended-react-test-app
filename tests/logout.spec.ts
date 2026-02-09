@@ -11,10 +11,10 @@ test.describe('Feature: Logout Flow', () => {
   });
 
   test('Logout resets application state', async ({ page }) => {
-    await page.getByTestId('signout-btn').click();
+    await page.getByTestId('signout-button').click();
     
-    await expect(page.getByTestId('goodbye-message')).toHaveText('GoodBuy.');
+    await expect(page.getByTestId('logout-message')).toHaveText('Goodbye.');
     
-    await expect(page.getByTestId('auth-page')).toBeVisible();
+    await expect(page.getByTestId('login-page')).toBeVisible();
   });
 });
