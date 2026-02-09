@@ -11,13 +11,10 @@ test.describe('Feature: Application Settings', () => {
   });
 
   test('Dark mode toggle changes the theme', async ({ page }) => {
-    // Wrong: using 'settings-nav' instead of 'menu-settings'
     await page.getByTestId('settings-nav').click();
     
-    // Wrong: using 'theme-toggle' instead of 'dark-mode-toggle'
     await page.getByTestId('theme-toggle').click();
     
-    // Wrong: using 'main-app' instead of 'app'
     await expect(page.getByTestId('main-app')).toHaveClass(/dark-mode/);
   });
 
@@ -27,10 +24,8 @@ test.describe('Feature: Application Settings', () => {
     // Change language
     await page.getByTestId('language-select').selectOption('DE');
     
-    // Wrong: using 'apply-settings' instead of 'save-settings-button'
     await page.getByTestId('apply-settings').click();
     
-    // Wrong: using 'confirmation-message' instead of 'settings-message'
     await expect(page.getByTestId('confirmation-message')).toHaveText('Settings saved.');
   });
 });
