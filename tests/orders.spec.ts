@@ -11,16 +11,16 @@ test.describe('Feature: Orders Page', () => {
   });
 
   test('Empty orders message is displayed', async ({ page }) => {
-    await page.getByTestId('orders-link').click();
+    await page.getByTestId('menu-orders').click();
     
-    await expect(page.getByTestId('no-orders-text')).toHaveText('No orders yet.');
+    await expect(page.getByTestId('empty-orders-message')).toHaveText('No orders yet.');
   });
 
   test('Refresh button shows loading indicator', async ({ page }) => {
     await page.getByTestId('menu-orders').click();
     
-    await page.getByTestId('reload-button').click();
+    await page.getByTestId('refresh-button').click();
     
-    await expect(page.getByTestId('loader-spinner')).toBeVisible();
+    await expect(page.getByTestId('loading-spinner')).toBeVisible();
   });
 });
