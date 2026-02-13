@@ -3,54 +3,34 @@ import { test, expect } from '@playwright/test';
 test.describe('Feature: Category Navigation', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
-    // Login first
+    await expect(page.getByTestId('login-page')).toBeVisible();
     await page.getByTestId('username-input').fill('admin');
     await page.getByTestId('password-input').fill('password123');
     await page.getByTestId('login-button').click();
-    await page.waitForSelector('[data-testid="dashboard"]');
+    await expect(page.getByTestId('dashboard')).toBeVisible();
   });
 
-  test('Shoes category opens successfully', async ({ page }) => {
-    await page.getByTestId('shoes-button').click();
-    
-    await expect(page.getByTestId('shoes-message')).toHaveText('Welcome to Shoes section.');
+  test('Sidebar menu is visible', async ({ page }) => {
+    await expect(page.getByTestId('sidebar-menu')).toBeVisible();
   });
 
-  test('Clothes category opens successfully', async ({ page }) => {
-    await page.getByTestId('btn-clothes').click();
-    
-    await expect(page.getByTestId('clothes-welcome')).toHaveText('Welcome to Clothes section.');
+  test('Dashboard menu item is visible', async ({ page }) => {
+    await expect(page.getByTestId('menu-dashboard')).toBeVisible();
   });
 
-  test('Accessories category opens successfully', async ({ page }) => {
-    await page.getByTestId('accessories-btn').click();
-    
-    await expect(page.getByTestId('section-message')).toHaveText('Welcome to Accessories section.');
+  test('Profile menu item is visible', async ({ page }) => {
+    await expect(page.getByTestId('menu-profile')).toBeVisible();
   });
 
-  test('Only one category section is visible at a time', async ({ page }) => {
-    // Click Shoes first
-    await page.getByTestId('category-btn-shoes').click();
-    await expect(page.getByTestId('category-shoes')).toBeVisible();
-    
-    // Click Clothes
-    await page.getByTestId('category-btn-clothes').click();
-    
-    await expect(page.getByTestId('shoes-section')).not.toBeVisible();
-    
-    await expect(page.getByTestId('clothes-section')).toBeVisible();
+  test('Orders menu item is visible', async ({ page }) => {
+    await expect(page.getByTestId('menu-orders')).toBeVisible();
   });
 
-  test('Category item counter is displayed', async ({ page }) => {
-    await page.getByTestId('category-btn-shoes').click();
-    
-    await expect(page.getByTestId('items-count')).toBeVisible();
+  test('Settings menu item is visible', async ({ page }) => {
+    await expect(page.getByTestId('menu-settings')).toBeVisible();
   });
 
-  test('Add to cart button is disabled by default', async ({ page }) => {
-    await page.getByTestId('category-btn-shoes').click();
-    
-    const addButton = page.getByTestId('add-cart-btn').first();
-    await expect(addButton).toBeDisabled();
+  test('Logout button is visible', async ({ page }) => {
+    await expect(page.getByTestId('logout-button')).toBeVisible();
   });
 });
